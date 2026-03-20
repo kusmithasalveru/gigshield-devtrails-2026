@@ -704,12 +704,6 @@ This repository contains our complete Phase 1 submission including this README, 
 
 Note: This is a Phase 1 ideation submission. Code development begins in Phase 2. The repository structure and notebooks above represent our planned architecture and are being populated progressively across phases.
 
-Repository Link:
-
-    https://github.com/kusmithasalveru/gigshield-devtrails-2026
-
-    Replace [your-github-username] with your actual GitHub username before submitting.
-
 Team Contact:
 
     Team Name   :  CodeSmart
