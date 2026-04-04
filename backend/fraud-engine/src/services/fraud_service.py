@@ -109,9 +109,9 @@ def run_fraud_check(worker_id, event_id, gps_lat=None, gps_lng=None,
     # === Decision ===
     overall_score = ml_score
     if is_duplicate:
-        decision = "hold"
+        decision = "reject"
     elif ml_score >= ANOMALY_HOLD_THRESHOLD or network_flag:
-        decision = "hold"
+        decision = "reject"
     elif ml_score >= ANOMALY_REVIEW_THRESHOLD or not location_valid or not activity_valid:
         decision = "human_review"
     else:
