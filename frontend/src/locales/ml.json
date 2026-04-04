@@ -1,0 +1,6 @@
+{
+  "onboarding": { "selectLanguage": "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക", "enterPhone": "മൊബൈൽ നമ്പർ നൽകുക", "sendOtp": "OTP അയയ്ക്കുക", "verifyOtp": "പരിശോധിക്കുക", "next": "അടുത്തത്", "back": "പിന്നിലേക്ക്", "done": "ആരംഭിക്കുക", "welcome": "GigShield ലേക്ക് സ്വാഗതം" },
+  "dashboard": { "welcome": "സ്വാഗതം, {{name}}!", "coverage": "ഈ ആഴ്ചയിലെ കവറേജ്", "seeAll": "എല്ലാം കാണുക", "buyCoverage": "കവറേജ് വാങ്ങുക" },
+  "policy": { "title": "നിങ്ങളുടെ കവറേജ് തിരഞ്ഞെടുക്കുക", "basic": "ബേസിക്", "standard": "സ്റ്റാൻഡേർഡ്", "pro": "പ്രോ", "perWeek": "/ആഴ്ച" },
+  "common": { "covered": "കവർ ചെയ്തു", "loading": "ലോഡ് ചെയ്യുന്നു...", "heavy_rain": "കനത്ത മഴ", "severe_pollution": "കടുത്ത മലിനീകരണം", "extreme_heat": "കടുത്ത ചൂട്", "flash_flood": "വെള്ളപ്പൊക്കം", "strike": "പണിമുടക്ക്" }
+}

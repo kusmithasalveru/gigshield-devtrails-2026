@@ -1,0 +1,10 @@
+{
+  "onboarding": { "selectLanguage": "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்", "enterPhone": "மொபைல் எண் உள்ளிடவும்", "sendOtp": "OTP அனுப்பு", "enterOtp": "6 இலக்க OTP உள்ளிடவும்", "verifyOtp": "சரிபார்", "name": "உங்கள் பெயர்", "platform": "டெலிவரி தளம்", "zone": "உங்கள் பகுதி", "next": "அடுத்து", "back": "பின்", "done": "தொடங்கு", "welcome": "GigShield க்கு வரவேற்கிறோம்", "tagline": "உங்களுக்காக செயல்படும் வருமான பாதுகாப்பு" },
+  "dashboard": { "welcome": "வரவேற்கிறோம், {{name}}!", "coverage": "இந்த வார கவரேஜ்", "recentPayouts": "சமீபத்திய பேஅவுட்கள்", "seeAll": "அனைத்தும் காண்க", "noAlerts": "எல்லாம் நலம்!", "noCoverage": "இந்த வாரம் கவரேஜ் இல்லை", "buyCoverage": "கவரேஜ் வாங்கு" },
+  "policy": { "title": "உங்கள் கவரேஜை தேர்வு செய்க", "basic": "அடிப்படை", "standard": "நிலையான", "pro": "புரோ", "perWeek": "/வாரம்", "pay": "UPI வழியாக ₹{{amount}} செலுத்து" },
+  "claims": { "title": "உரிமை நிலை", "noActive": "எல்லாம் நலம்!" },
+  "payouts": { "title": "பேஅவுட் வரலாறு", "noPayouts": "இதுவரை பேஅவுட் இல்லை" },
+  "dispute": { "title": "தகராறு போர்டல்", "submit": "தகராறு சமர்ப்பி" },
+  "profile": { "title": "சுயவிவரம்", "logout": "வெளியேறு" },
+  "common": { "covered": "கவர் செய்யப்பட்டது", "loading": "ஏற்றுகிறது...", "heavy_rain": "கனமழை", "moderate_rain": "மிதமான மழை", "severe_pollution": "கடுமையான மாசு", "extreme_heat": "கடும் வெப்பம்", "flash_flood": "வெள்ளம்", "strike": "வேலைநிறுத்தம்" }
+}

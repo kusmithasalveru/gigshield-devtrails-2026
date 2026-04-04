@@ -1,0 +1,6 @@
+{
+  "onboarding": { "selectLanguage": "तुमची भाषा निवडा", "enterPhone": "मोबाइल नंबर टाका", "sendOtp": "OTP पाठवा", "verifyOtp": "सत्यापित करा", "next": "पुढे", "back": "मागे", "done": "सुरू करा", "welcome": "GigShield मध्ये स्वागत" },
+  "dashboard": { "welcome": "स्वागत, {{name}}!", "coverage": "या आठवड्याचे कव्हरेज", "seeAll": "सर्व पहा", "buyCoverage": "कव्हरेज खरेदी करा" },
+  "policy": { "title": "तुमचे कव्हरेज निवडा", "basic": "बेसिक", "standard": "स्टँडर्ड", "pro": "प्रो", "perWeek": "/आठवडा" },
+  "common": { "covered": "कव्हर केले", "loading": "लोड होत आहे...", "heavy_rain": "मुसळधार पाऊस", "severe_pollution": "तीव्र प्रदूषण", "extreme_heat": "तीव्र उष्णता", "flash_flood": "पूर", "strike": "संप / कर्फ्यू" }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "gigshield-devtrails-2026",
+  "version": "2.0.0",
+  "private": true,
+  "description": "GigShield - AI-Powered Parametric Income Insurance for Gig Workers",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "start": "bash scripts/start-all.sh",
+    "start:frontend": "cd frontend && npm run dev",
+    "start:api": "cd backend/api-gateway && npm run dev",
+    "start:fraud": "cd backend/fraud-engine && python -m uvicorn src.main:app --reload --port 8000",
+    "start:trigger": "cd backend/trigger-engine && python -m celery -A src.celery_app worker --beat --loglevel=info",
+    "train": "bash scripts/train-models.sh",
+    "db:migrate": "bash scripts/db-migrate.sh",
+    "install:all": "cd frontend && npm install && cd ../backend/api-gateway && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kusmithasalveru/gigshield-devtrails-2026"
+  },
+  "author": "Team CodeSmart",
+  "license": "MIT"
+}
