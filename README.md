@@ -714,3 +714,6 @@ Team Contact:
 End of Document
 GigShield Phase 1 Submission
 Team CodeSmart | Guidewire DEVTrails 2026
+## 📄 License
+This project is licensed under the MIT License.
+© 2026 Kusmitha Salveru
