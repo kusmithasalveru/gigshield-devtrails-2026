@@ -17,6 +17,13 @@ MAX_INACTIVE_HOURS = 3.0
 ANOMALY_REVIEW_THRESHOLD = 0.75
 ANOMALY_HOLD_THRESHOLD = 0.90
 
+# Phase-3 (heuristic additions)
+REPEATED_CLAIMS_WINDOW_HOURS = 24
+REPEATED_CLAIMS_REVIEW_THRESHOLD = 2
+REPEATED_CLAIMS_HOLD_THRESHOLD = 3
+RECENT_ACTIVITY_HOURS_FOR_SPOOF = 1.0
+GPS_SPOOF_DISTANCE_MULTIPLIER = 3.0
+
 
 def haversine_distance(lat1, lng1, lat2, lng2):
     """Calculate distance between two points in km."""
@@ -39,6 +46,8 @@ def run_fraud_check(worker_id, event_id, gps_lat=None, gps_lng=None,
     zone_lat, zone_lng = 0, 0
     is_duplicate = False
     network_flag = False
+    recent_claims_count = 0
+    gps_spoof_suspected = False
 
     try:
         conn = psycopg2.connect(DATABASE_URL)
@@ -68,6 +77,13 @@ def run_fraud_check(worker_id, event_id, gps_lat=None, gps_lng=None,
         shared_upi_count = cur.fetchone()[0]
         network_flag = shared_upi_count > 1
 
+        # Phase-3: Repeated-claims detection (frequency in recent window)
+        cur.execute(
+            "SELECT COUNT(*) FROM fraud_checks WHERE worker_id = %s AND created_at >= NOW() - interval '24 hours'",
+            (worker_id,),
+        )
+        recent_claims_count = cur.fetchone()[0]
+
         conn.close()
     except Exception:
         # No DB available — run in standalone mode (layers 1-3 only)
@@ -89,6 +105,21 @@ def run_fraud_check(worker_id, event_id, gps_lat=None, gps_lng=None,
     if not activity_valid:
         flags.append(f"Inactive for {last_activity_hours_ago:.1f}h before trigger (limit: {MAX_INACTIVE_HOURS}h)")
 
+    # Phase-3: GPS spoofing suspicion (heuristic, no model change)
+    # If GPS is far from zone but worker shows recent activity, it often indicates spoofed coordinates.
+    if (not location_valid and activity_valid and distance_km > (LOCATION_RADIUS_KM * GPS_SPOOF_DISTANCE_MULTIPLIER)
+        and last_activity_hours_ago <= RECENT_ACTIVITY_HOURS_FOR_SPOOF):
+        gps_spoof_suspected = True
+        flags.append(
+            f"GPS spoofing suspected: {distance_km:.1f}km mismatch with recent activity"
+        )
+
+    repeated_claims_suspected = recent_claims_count >= REPEATED_CLAIMS_REVIEW_THRESHOLD
+    if repeated_claims_suspected:
+        flags.append(
+            f"Repeated claims: {recent_claims_count} fraud checks in last {REPEATED_CLAIMS_WINDOW_HOURS}h"
+        )
+
     # === Layer 3: ML Anomaly Detection (Isolation Forest) ===
     ml_score = predict_fraud_score(
         claims_past_30d=claims_past_30d,
@@ -109,10 +140,18 @@ def run_fraud_check(worker_id, event_id, gps_lat=None, gps_lng=None,
     # === Decision ===
     overall_score = ml_score
     if is_duplicate:
-        decision = "reject"
+        decision = "hold"
+    elif recent_claims_count >= REPEATED_CLAIMS_HOLD_THRESHOLD:
+        decision = "hold"
     elif ml_score >= ANOMALY_HOLD_THRESHOLD or network_flag:
-        decision = "reject"
-    elif ml_score >= ANOMALY_REVIEW_THRESHOLD or not location_valid or not activity_valid:
+        decision = "hold"
+    elif (
+        ml_score >= ANOMALY_REVIEW_THRESHOLD
+        or not location_valid
+        or not activity_valid
+        or gps_spoof_suspected
+        or repeated_claims_suspected
+    ):
         decision = "human_review"
     else:
         decision = "auto_approve"
@@ -121,5 +160,9 @@ def run_fraud_check(worker_id, event_id, gps_lat=None, gps_lng=None,
         "anomaly_score": round(overall_score, 3),
         "decision": decision,
         "flags": flags,
-        "shap_explanation": f"Score {ml_score:.3f}: distance={distance_km:.1f}km, claims={claims_past_30d}, ratio={claim_to_coverage_ratio:.2f}" if flags else None,
+        "shap_explanation": (
+            f"Score {ml_score:.3f}: distance={distance_km:.1f}km, claims={claims_past_30d}, "
+            f"ratio={claim_to_coverage_ratio:.2f}, recent_claims={recent_claims_count}"
+        )
+        if flags else None,
     }

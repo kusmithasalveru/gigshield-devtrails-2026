@@ -39,8 +39,16 @@ export default function Onboarding() {
   };
 
   const handleComplete = () => {
+    // Use seeded worker IDs when the demo phone matches seed data,
+    // so Phase-3 dashboards/pipelines can hit the real PostgreSQL rows.
+    const seededWorkerIds = {
+      '9876543210': 'b2000001-0000-0000-0000-000000000001',
+      '9876543211': 'b2000001-0000-0000-0000-000000000002',
+    };
+    const workerId = seededWorkerIds[phone] || (crypto.randomUUID ? crypto.randomUUID() : `u-${Date.now()}`);
+
     login({
-      id: 'u-' + Date.now(),
+      id: workerId,
       phone,
       ...profile,
       language: localStorage.getItem('gigshield_lang') || 'en',

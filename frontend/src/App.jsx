@@ -8,6 +8,7 @@ import ClaimStatus from './pages/ClaimStatus';
 import PayoutHistory from './pages/PayoutHistory';
 import DisputePortal from './pages/DisputePortal';
 import Profile from './pages/Profile';
+import FraudDetection from './pages/FraudDetection';
 
 export const AuthContext = createContext(null);
 
@@ -52,6 +53,7 @@ export default function App() {
         <Route path="/policy" element={<ProtectedRoute><PolicySelection /></ProtectedRoute>} />
         <Route path="/claims" element={<ProtectedRoute><ClaimStatus /></ProtectedRoute>} />
         <Route path="/payouts" element={<ProtectedRoute><PayoutHistory /></ProtectedRoute>} />
+        <Route path="/fraud" element={<ProtectedRoute><FraudDetection /></ProtectedRoute>} />
         <Route path="/dispute" element={<ProtectedRoute><DisputePortal /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       </Routes>

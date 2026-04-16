@@ -1,7 +1,7 @@
 """GigShield Fraud Engine — FastAPI ML inference and payout processing."""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import fraud, payout
+from .routes import fraud, payout, phase3
 from .services.ml_inference import load_models
 
 app = FastAPI(
@@ -20,6 +20,9 @@ app.add_middleware(
 
 app.include_router(fraud.router, prefix="/ml/fraud", tags=["Fraud Detection"])
 app.include_router(payout.router, prefix="/ml", tags=["Payout Processing"])
+app.include_router(fraud.router, prefix="/m1/fraud", tags=["Fraud Detection (v1)"])
+app.include_router(payout.router, prefix="/m1", tags=["Payout Processing (v1)"])
+app.include_router(phase3.router, tags=["Phase 3"])
 
 
 @app.on_event("startup")

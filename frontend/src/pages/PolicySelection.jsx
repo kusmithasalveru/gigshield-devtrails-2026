@@ -52,7 +52,15 @@ export default function PolicySelection() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-bold">{t('policy.title')}</h1>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h1 className="text-xl font-bold">{t('policy.title')}</h1>
+          <p className="text-sm text-gray-500 mt-1">Weekly pricing</p>
+        </div>
+        <span className="inline-flex items-center gap-2 text-[11px] font-semibold px-3 py-1 rounded-full bg-primary-50 text-primary-700 border border-primary-100">
+          AI-based pricing
+        </span>
+      </div>
 
       {/* Week Forecast */}
       <div className="card">
@@ -99,7 +107,7 @@ export default function PolicySelection() {
         disabled={purchasing}
         className="btn-primary w-full text-lg"
       >
-        {purchasing ? t('policy.processing') : t('policy.pay', { amount: premium })}
+        {purchasing ? t('policy.processing') : `Activate coverage · ₹${premium}/week`}
       </button>
     </div>
   );
