@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { -webkit-tap-highlight-color: transparent; }
+  body { @apply antialiased bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100; }
+  input, select, textarea, button { @apply min-h-touch min-w-touch; }
+  input::placeholder,
+  textarea::placeholder {
+    color: #64748b;
+    opacity: 1;
+  }
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 text-white font-semibold py-3 px-6 rounded-xl min-h-touch
+           active:bg-primary-700 transition-colors duration-150 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-700 font-medium py-3 px-6 rounded-xl min-h-touch
+           active:bg-gray-200 transition-colors duration-150;
+  }
+  .card {
+    @apply bg-white rounded-2xl p-4 shadow-sm border border-gray-100;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-800;
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: shimmer 1.2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

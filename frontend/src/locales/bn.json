@@ -1,0 +1,6 @@
+{
+  "onboarding": { "selectLanguage": "আপনার ভাষা নির্বাচন করুন", "enterPhone": "মোবাইল নম্বর দিন", "sendOtp": "OTP পাঠান", "verifyOtp": "যাচাই করুন", "next": "পরবর্তী", "back": "পিছনে", "done": "শুরু করুন", "welcome": "GigShield এ স্বাগতম" },
+  "dashboard": { "welcome": "স্বাগতম, {{name}}!", "coverage": "এই সপ্তাহের কভারেজ", "seeAll": "সব দেখুন", "buyCoverage": "কভারেজ কিনুন" },
+  "policy": { "title": "আপনার কভারেজ বেছে নিন", "basic": "বেসিক", "standard": "স্ট্যান্ডার্ড", "pro": "প্রো", "perWeek": "/সপ্তাহ" },
+  "common": { "covered": "কভার করা হয়েছে", "loading": "লোড হচ্ছে...", "heavy_rain": "ভারী বৃষ্টি", "severe_pollution": "তীব্র দূষণ", "extreme_heat": "তীব্র গরম", "flash_flood": "বন্যা", "strike": "ধর্মঘট" }
+}

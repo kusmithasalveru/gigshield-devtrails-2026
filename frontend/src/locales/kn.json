@@ -1,0 +1,6 @@
+{
+  "onboarding": { "selectLanguage": "ನಿಮ್ಮ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ", "enterPhone": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ", "sendOtp": "OTP ಕಳುಹಿಸಿ", "verifyOtp": "ಪರಿಶೀಲಿಸಿ", "next": "ಮುಂದೆ", "back": "ಹಿಂದೆ", "done": "ಪ್ರಾರಂಭಿಸಿ", "welcome": "GigShield ಗೆ ಸ್ವಾಗತ" },
+  "dashboard": { "welcome": "ಸ್ವಾಗತ, {{name}}!", "coverage": "ಈ ವಾರದ ಕವರೇಜ್", "seeAll": "ಎಲ್ಲಾ ನೋಡಿ", "buyCoverage": "ಕವರೇಜ್ ಖರೀದಿಸಿ" },
+  "policy": { "title": "ನಿಮ್ಮ ಕವರೇಜ್ ಆಯ್ಕೆಮಾಡಿ", "basic": "ಬೇಸಿಕ್", "standard": "ಸ್ಟ್ಯಾಂಡರ್ಡ್", "pro": "ಪ್ರೊ", "perWeek": "/ವಾರ" },
+  "common": { "covered": "ಕವರ್ ಆಗಿದೆ", "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...", "heavy_rain": "ಭಾರೀ ಮಳೆ", "severe_pollution": "ತೀವ್ರ ಮಾಲಿನ್ಯ", "extreme_heat": "ತೀವ್ರ ಶಾಖ", "flash_flood": "ಪ್ರವಾಹ", "strike": "ಮುಷ್ಕರ" }
+}
