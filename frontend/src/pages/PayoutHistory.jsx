@@ -71,11 +71,12 @@ export default function PayoutHistory() {
     setSimulated(false);
     setErrMsg('');
     setResp(null);
+    const eventId = form.event_id || (crypto.randomUUID ? crypto.randomUUID() : `evt-${Date.now()}`);
 
     try {
       const res = await processPayout({
-        worker_id: form.worker_id,
-        event_id: form.event_id,
+        worker_id: form.worker_id || (user?.id || 'demo-worker'),
+        event_id: eventId,
         gps_lat: Number(form.gps_lat),
         gps_lng: Number(form.gps_lng),
       });
@@ -86,6 +87,10 @@ export default function PayoutHistory() {
         updateUser({ trustScore: applyTrustPenalty(user?.trustScore, penalty) });
       }
       addToast('success', `${t('payouts.completed')} ₹${res.amount || 0}`);
+      setForm((prev) => ({
+        ...prev,
+        event_id: crypto.randomUUID ? crypto.randomUUID() : `evt-${Date.now()}`,
+      }));
     } catch (e) {
       setSimulated(true);
       setErrMsg(e?.message || 'API failed');
@@ -103,6 +108,10 @@ export default function PayoutHistory() {
         updateUser({ trustScore: applyTrustPenalty(user?.trustScore, penalty) });
       }
       addToast('info', t('payouts.completed'));
+      setForm((prev) => ({
+        ...prev,
+        event_id: crypto.randomUUID ? crypto.randomUUID() : `evt-${Date.now()}`,
+      }));
     } finally {
       setLoading(false);
     }
@@ -194,7 +203,7 @@ export default function PayoutHistory() {
 
       <button onClick={submit} disabled={loading} className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white py-3 flex items-center justify-center gap-2">
         {loading ? <Loader size={18} className="animate-spin" /> : <Bolt size={18} />}
-        {loading ? t('claims.processing') : t('payouts.title')}
+        {loading ? t('claims.processing') : 'Process Payout'}
       </button>
 
       {simulated && <div className="text-sm text-amber-800 font-semibold">Simulated payout success</div>}

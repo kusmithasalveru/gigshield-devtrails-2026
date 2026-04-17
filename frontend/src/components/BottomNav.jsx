@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Activity, Wallet, User, Radar } from 'lucide-react';
+import { LayoutDashboard, Activity, Wallet, User, Shield, Radar } from 'lucide-react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +9,7 @@ export default function BottomNav() {
   const navigate = useNavigate();
   const tabs = [
     { path: '/dashboard', icon: LayoutDashboard, label: t('nav.dashboard', { defaultValue: 'Dashboard' }) },
+    { path: '/policy', icon: Shield, label: t('nav.policy', { defaultValue: 'Policy' }) },
     { path: '/claims', icon: Activity, label: t('nav.claimFlow', { defaultValue: 'Claim Flow' }) },
     { path: '/fraud', icon: Radar, label: t('nav.fraud', { defaultValue: 'Fraud' }) },
     { path: '/payouts', icon: Wallet, label: t('nav.payout', { defaultValue: 'Payout' }) },
@@ -28,12 +29,12 @@ export default function BottomNav() {
               key={tab.path}
               onClick={() => navigate(tab.path)}
               className={clsx(
-                'flex flex-col items-center justify-center py-2 px-3 min-h-touch min-w-touch',
+                'flex flex-col items-center justify-center py-2 px-2 min-h-touch min-w-touch',
                 'transition-colors',
                 isActive ? 'text-indigo-600 dark:text-indigo-300' : 'text-slate-400'
               )}
             >
-              <Icon size={22} />
+              <Icon size={20} />
               <span className="text-[10px] mt-0.5 font-medium">{tab.label}</span>
             </button>
           );
