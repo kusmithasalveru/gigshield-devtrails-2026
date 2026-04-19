@@ -37,9 +37,17 @@ app.use('/api/notifications', notificationRoutes);
 // Fraud Detection API (Demo endpoint)
 app.post('/m1/fraud/score', (req, res) => {
   res.json({
-    anomaly_score: 0.66,
-    decision: 'human_review',
-    message: 'Simulated fraud detection response'
+    anomaly_score: 0.64,
+    decision: 'human_review'
+  });
+});
+
+// Payout Processing API (Demo endpoint)
+app.post('/m1/process-payout', (req, res) => {
+  res.json({
+    status: 'completed',
+    amount: 140,
+    reference: 'demo-' + Date.now()
   });
 });
 

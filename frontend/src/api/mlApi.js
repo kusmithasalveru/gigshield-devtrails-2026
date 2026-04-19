@@ -5,13 +5,16 @@ function getToken() {
 }
 
 async function jsonFetch(url, options = {}) {
+  const token = getToken();
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token && { Authorization: `Bearer ${token}` }),
+    ...(options.headers || {}),
+  };
+  
   const res = await fetch(url, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getToken()}`,
-      ...(options.headers || {}),
-    },
+    headers,
   });
   const text = await res.text();
   const maybeJson = text ? (() => { try { return JSON.parse(text); } catch { return null; } })() : null;

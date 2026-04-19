@@ -12,13 +12,16 @@ function getToken() {
 }
 
 async function apiCall(endpoint, options = {}) {
+  const token = getToken();
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token && { Authorization: `Bearer ${token}` }),
+    ...options.headers
+  };
+  
   const res = await fetch(`${API_BASE}${endpoint}`, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
-      ...options.headers
-    }
+    headers
   });
   if (!res.ok) throw new Error(`API Error: ${res.status}`);
   return res.json();
@@ -103,13 +106,21 @@ export async function getTrustScore(workerId) {
 
 // Policies
 export async function getActivePolicy(workerId) {
-  await delay();
-  return mockPolicy;
+  try {
+    return await apiCall('/policies', { method: 'GET' });
+  } catch {
+    await delay();
+    return mockPolicy;
+  }
 }
 
 export async function getWorkerPolicies(workerId) {
-  await delay();
-  return [mockPolicy];
+  try {
+    return await apiCall('/policies', { method: 'GET' });
+  } catch {
+    await delay();
+    return [mockPolicy];
+  }
 }
 
 export async function purchasePolicy(workerId, tier) {
@@ -139,8 +150,12 @@ export async function getPremiumQuote(workerId, tier) {
 }
 
 export async function getPeerChoice() {
-  await delay();
-  return mockPeerChoice;
+  try {
+    return await apiCall('/peer-choice', { method: 'GET' });
+  } catch {
+    await delay();
+    return mockPeerChoice;
+  }
 }
 
 // Events / Triggers
@@ -164,8 +179,12 @@ export async function getEventById(eventId) {
 
 // Payouts
 export async function getWorkerPayouts(workerId) {
-  await delay();
-  return mockPayouts;
+  try {
+    return await apiCall('/payouts', { method: 'GET' });
+  } catch {
+    await delay();
+    return mockPayouts;
+  }
 }
 
 export async function getPayoutById(payoutId) {
@@ -179,8 +198,12 @@ export async function getPayoutById(payoutId) {
 
 // Disputes
 export async function getDisputes(workerId) {
-  await delay();
-  return mockDisputes;
+  try {
+    return await apiCall('/disputes', { method: 'GET' });
+  } catch {
+    await delay();
+    return mockDisputes;
+  }
 }
 
 export async function submitDispute(payoutId, reason) {

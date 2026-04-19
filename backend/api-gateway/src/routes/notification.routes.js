@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { authenticate } = require('../middleware/auth');
+// const { authenticate } = require('../middleware/auth'); // disabled for demo
 const notificationController = require('../controllers/notification.controller');
 
-router.post('/dispatch', authenticate, notificationController.dispatch);
+router.post('/dispatch', notificationController.dispatch);
 
 module.exports = router;
