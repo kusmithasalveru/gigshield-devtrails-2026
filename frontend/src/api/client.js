@@ -1,6 +1,6 @@
 import { mockUser, mockPolicy, mockTriggers, mockPayouts, mockPeerChoice, mockDisputes, mockTrustHistory } from './mockData';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://gigshield-rl7l.onrender.com/api';
 const MOCK_DELAY = 300;
 
 function delay(ms = MOCK_DELAY) {

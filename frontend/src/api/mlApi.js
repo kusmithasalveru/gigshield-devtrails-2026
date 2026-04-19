@@ -1,4 +1,4 @@
-const ML_ENGINE_BASE_URL = import.meta.env.VITE_FRAUD_ENGINE_URL || 'http://localhost:8000';
+const ML_ENGINE_BASE_URL = import.meta.env.VITE_FRAUD_ENGINE_URL || 'https://gigshield-rl7l.onrender.com';
 
 async function jsonFetch(url, options = {}) {
   const res = await fetch(url, {
