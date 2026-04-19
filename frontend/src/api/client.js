@@ -218,15 +218,4 @@ export async function submitDispute(payoutId, reason) {
   }
 }
 
-export async function sendUserNotification({ phone, message, channel }) {
-  try {
-    return await apiCall('/notifications/dispatch', {
-      method: 'POST',
-      body: JSON.stringify({ phone, message, channel }),
-    });
-  } catch (e) {
-    throw new Error(e?.message || 'Notification failed');
-  }
-}
-
 export { apiCall };

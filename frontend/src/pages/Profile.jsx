@@ -5,7 +5,6 @@ import { User, Shield, LogOut, Check } from 'lucide-react';
 import { useAuth } from '../App';
 import LanguagePicker from '../components/LanguagePicker';
 import { getFraudChecks, getPayoutChecks } from '../utils/sessionStore';
-import { sendUserNotification } from '../api/client';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -52,48 +51,6 @@ export default function Profile() {
     const payouts = getPayoutChecks();
     return Number(payouts.at(-1)?.amount || 0);
   }, [stats.claims]);
-
-  const buildAlertMessage = () => {
-    const name = user?.name || 'Gig worker';
-    const phone = user?.phone || '';
-    return `GigShield Update for ${name} (${phone}): Latest available payout amount is Rs ${latestAmount}.`;
-  };
-
-  const triggerWhatsappAlert = async () => {
-    const phone = (user?.phone || '').replace(/\D/g, '');
-    if (!phone) {
-      addToast?.('error', t('common.error'));
-      return;
-    }
-    try {
-      await sendUserNotification({
-        phone,
-        message: buildAlertMessage(),
-        channel: 'whatsapp',
-      });
-      addToast?.('success', t('profile.whatsapp'));
-    } catch (e) {
-      addToast?.('error', e?.message || t('common.error'));
-    }
-  };
-
-  const triggerSmsAlert = async () => {
-    const phone = (user?.phone || '').replace(/\D/g, '');
-    if (!phone) {
-      addToast?.('error', t('common.error'));
-      return;
-    }
-    try {
-      await sendUserNotification({
-        phone,
-        message: buildAlertMessage(),
-        channel: 'sms',
-      });
-      addToast?.('success', t('profile.sms'));
-    } catch (e) {
-      addToast?.('error', e?.message || t('common.error'));
-    }
-  };
 
   return (
     <div className="space-y-5">
@@ -210,31 +167,6 @@ export default function Profile() {
           <span className="text-gray-500">{t('profile.weeklyEarnings')}</span>
           <span className="font-medium">₹{user?.avgWeeklyEarnings}</span>
         </div>
-      </div>
-
-      {/* Notifications */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 p-4 backdrop-blur-xl space-y-3">
-        <h3 className="font-semibold">{t('profile.notifications')}</h3>
-        <label className="flex items-center justify-between min-h-touch">
-          <span className="text-gray-600">{t('profile.whatsapp')}</span>
-          <input
-            type="checkbox"
-            className="w-5 h-5 accent-primary-600"
-            onChange={(e) => {
-              if (e.target.checked) triggerWhatsappAlert();
-            }}
-          />
-        </label>
-        <label className="flex items-center justify-between min-h-touch">
-          <span className="text-gray-600">{t('profile.sms')}</span>
-          <input
-            type="checkbox"
-            className="w-5 h-5 accent-primary-600"
-            onChange={(e) => {
-              if (e.target.checked) triggerSmsAlert();
-            }}
-          />
-        </label>
       </div>
 
       {/* Logout */}
