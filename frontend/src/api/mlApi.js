@@ -1,10 +1,15 @@
 const ML_ENGINE_BASE_URL = import.meta.env.VITE_FRAUD_ENGINE_URL || 'https://gigshield-rl7l.onrender.com';
 
+function getToken() {
+  return localStorage.getItem('gigshield_token') || '';
+}
+
 async function jsonFetch(url, options = {}) {
   const res = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
       ...(options.headers || {}),
     },
   });

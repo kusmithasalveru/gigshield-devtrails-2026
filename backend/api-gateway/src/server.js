@@ -34,6 +34,15 @@ app.use('/api/events', triggerRoutes);
 app.use('/api/zones', zoneRoutes);
 app.use('/api/notifications', notificationRoutes);
 
+// Fraud Detection API (Demo endpoint)
+app.post('/m1/fraud/score', (req, res) => {
+  res.json({
+    anomaly_score: 0.66,
+    decision: 'human_review',
+    message: 'Simulated fraud detection response'
+  });
+});
+
 // Error handling
 app.use(errorHandler);
 
