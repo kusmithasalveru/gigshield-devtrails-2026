@@ -106,47 +106,27 @@ export async function getTrustScore(workerId) {
 
 // Policies
 export async function getActivePolicy(workerId) {
-  try {
-    return await apiCall('/policies', { method: 'GET' });
-  } catch {
-    await delay();
-    return mockPolicy;
-  }
+  await delay();
+  return mockPolicy;
 }
 
 export async function getWorkerPolicies(workerId) {
-  try {
-    return await apiCall('/policies', { method: 'GET' });
-  } catch {
-    await delay();
-    return [mockPolicy];
-  }
+  await delay();
+  return [mockPolicy];
 }
 
 export async function purchasePolicy(workerId, tier) {
-  try {
-    return await apiCall('/policies', {
-      method: 'POST',
-      body: JSON.stringify({ worker_id: workerId, tier }),
-    });
-  } catch {
-    await delay(1500);
-    return { ...mockPolicy, tier, status: 'active' };
-  }
+  await delay(1500);
+  return { ...mockPolicy, tier, status: 'active' };
 }
 
 export async function getPremiumQuote(workerId, tier) {
-  try {
-    const result = await apiCall(`/policies/premium-quote?worker_id=${encodeURIComponent(workerId)}&tier=${encodeURIComponent(tier)}`, { method: 'GET' });
-    return { premium: result.premium, coverageLimit: result.coverageLimit, tier };
-  } catch {
-    await delay();
-    const tierMultipliers = { basic: 1.0, standard: 1.4, pro: 2.2 };
-    const base = 25;
-    const premium = Math.round(base * 0.68 * 1.10 * 0.95 * (tierMultipliers[tier] || 1.0));
-    const limits = { basic: 200, standard: 350, pro: 600 };
-    return { premium, coverageLimit: limits[tier], tier };
-  }
+  await delay();
+  const tierMultipliers = { basic: 1.0, standard: 1.4, pro: 2.2 };
+  const base = 25;
+  const premium = Math.round(base * 0.68 * 1.10 * 0.95 * (tierMultipliers[tier] || 1.0));
+  const limits = { basic: 200, standard: 350, pro: 600 };
+  return { premium, coverageLimit: limits[tier], tier };
 }
 
 export async function getPeerChoice() {

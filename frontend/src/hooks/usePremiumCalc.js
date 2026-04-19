@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getPremiumQuote } from '../api/client';
 
 const BASE_PREMIUM = 25;
 
@@ -27,19 +26,6 @@ export default function usePremiumCalc({ workerId, zone, tier = 'standard', week
     async function loadQuote() {
       setResult((prev) => ({ ...prev, loading: true, error: null }));
       try {
-        if (workerId) {
-          const live = await getPremiumQuote(workerId, tier);
-          if (!cancelled) {
-            setResult({
-              premium: Number(live.premium || 0),
-              coverageLimit: Number(live.coverageLimit || COVERAGE_LIMITS[tier] || 200),
-              loading: false,
-              error: null,
-            });
-            return;
-          }
-        }
-
         const zoneRiskScore = 0.68;
         const seasonFactor = getSeasonFactor();
         const loyaltyDiscount = getLoyaltyDiscount(weeksActive);
